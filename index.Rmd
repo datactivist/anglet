@@ -368,3 +368,14 @@ class: inverse, middle, center
 
 # Merci !
 
+<BR>
+<BR>
+<BR>
+
+### [datactivi.st/anglet](http://datactivi.st/anglet)
+
+<BR>
+<BR>
+
+Slides réalisées avec [xarigan](https://github.com/yihui/xaringan)
+
