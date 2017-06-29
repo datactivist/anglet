@@ -58,7 +58,7 @@ Je ne suis pas datajournaliste
 class: center, middle
 
 
-![](./img/logo.png)
+[![](./img/logo.png)](http://datactivi.st)
 
 ???
 
@@ -237,7 +237,7 @@ class: inverse, middle, center
 ---
 class: middle, center
 
-![Le ministère de l'intérieur me gonfle vraiment...](./img/presidentielle.png)
+[![Le ministère de l'intérieur me gonfle vraiment...](./img/presidentielle.png)](https://www.data.gouv.fr/fr/datasets/election-presidentielle-des-23-avril-et-7-mai-2017-resultats-definitifs-du-1er-tour-1/)
 
 ---
 class: middle, center
@@ -248,6 +248,10 @@ class: middle, center
 class: middle, center
 
 [![Lire les données du ministère de l'intérieur](./img/liremininterieur.png)](https://github.com/joelgombin/liremininterieur)
+
+???
+
+À la place, j'ai fait un package
 
 ---
 class: middle, center
@@ -283,7 +287,8 @@ class: middle, center
 ---
 class: middle, center
 
-Sans doute encore un peu de travail pour que R soit totalement satisfaisant pour le datajournalisme
+### Sans doute encore un peu de travail pour que R 
+### soit totalement satisfaisant pour le datajournalisme
 
 ---
 class: middle, center
