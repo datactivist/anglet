@@ -1,0 +1,370 @@
+---
+title: "Faut-il coder pour être datajournaliste ?"
+subtitle: "Comment les rédactions peuvent utiliser R"
+author: "Joël Gombin, datactivist"
+date: "29 juin 2017"
+output:
+  xaringan::moon_reader:
+    css: 
+       ["default", "assets/slides.css"]
+    seal: FALSE
+    chakra: libs/remark-latest.min.js
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(cache = TRUE)
+```
+
+class:inverse, center, middle
+background-image: url(./img/redaction.png)
+
+# Faut-il coder pour être datajournaliste ?
+## Comment les rédactions 
+## peuvent utiliser R
+
+</BR>
+</BR>
+</BR>
+
+### Joël Gombin
+### [datactivi.st/anglet](www.datactivi.st/anglet)
+
+???
+
+Image credit: [Musée Carnavalet](http://parismuseescollections.paris.fr/fr/musee-carnavalet/oeuvres/la-salle-de-redaction-du-journal-des-debats#infos-principales)
+
+
+---
+class: center, middle
+
+[![](./img/by-sa.svg)](https://creativecommons.org/licenses/by-sa/3.0/fr/)
+
+---
+class: inverse, center, middle
+
+![](./img/balavoine.jpg)
+
+???
+
+Je ne suis pas datajournaliste
+
+---
+class: center, middle
+
+
+![](./img/logo.png)
+
+???
+
+je ne suis qu'un datactivist
+
+---
+class: center, middle
+
+[![Marsactu](./img/marsactu.png)](https://marsactu.fr/author/joelgombin/)
+
+---
+
+class: middle 
+
+- **What ?** Utiliser R, de manière plus ou moins intensive
+
+- **Who ?** Des journalistes, mais aussi des datascientists, développeurs, ["graphics editor"](https://simplystatistics.org/2012/06/01/interview-with-amanda-cox-graphics-editor-at-the-new/), etc. 
+
+- **Where ?** Dans les rédactions
+
+- **When ?** Aujourd'hui :)
+
+- **Why ?/ How ?** C'est la question que je veux explorer ici !
+
+
+???
+
+NYT : 4 équipes différentes de datajournalisme, avec chacune différents corps de métier spécialisés !
+
+---
+class: middle
+
+[![538 talk at rstudio::conf](./img/538vidoe.png)](https://www.rstudio.com/resources/videos/finding-and-telling-stories-with-r/)
+
+???
+De nombreuses rédactions utilisent ouvertement R et structurent leur utilisation
+
+---
+class: middle
+
+[![home github 538](./img/538github.png)](https://github.com/fivethirtyeight/data)
+
+
+---
+class: center, middle
+
+.reduite[[![538 police story](./img/police.png)](https://fivethirtyeight.com/features/the-dallas-shooting-was-among-the-deadliest-for-police-in-u-s-history/)]
+
+---
+class: center, middle
+
+.reduite[[![538 police plot](./img/police-plot.png)](https://fivethirtyeight.com/features/the-dallas-shooting-was-among-the-deadliest-for-police-in-u-s-history/)]
+
+---
+class: center, middle
+
+[![538 police github repo](./img/police-github.png)](https://fivethirtyeight.com/features/the-dallas-shooting-was-among-the-deadliest-for-police-in-u-s-history/)
+
+---
+class: center, middle
+
+[![538 plot script](./img/police-script.png)](https://github.com/fivethirtyeight/data/blob/33b01e4a37911fff33f1e8afa9bc01a8d3698d8b/police-deaths/clean.R)
+
+---
+class: center, middle
+
+[![marsactu header](./img/marsactu-header.png)](https://marsactu.fr/chroniques/chronique-data-boulanger-keeps-the-fn-away/)
+
+.superreduite[[![marsactu scatter](./img/marsactu-scatter.png)](https://marsactu.fr/chroniques/chronique-data-boulanger-keeps-the-fn-away/)]
+
+---
+class: center, middle
+
+[![repo marsactu](./img/marsactu-repo.png)](https://github.com/joelgombin/commerces)
+
+---
+class: center, middle
+
+[![FT R tutorial](./img/ft-tuto.png)](https://github.com/ft-interactive/R-tutorials)
+
+---
+class: center, middle
+
+![rconsortium](./img/RConsortium.png)
+
+![grant](./img/grant.png)
+
+---
+class: inverse, center, middle
+
+# Reprenons par le début
+
+---
+class: center, middle
+
+## Le pipeline de la data science d'après Hadley
+
+[![data pipeline](./img/data-science.png)](http://r4ds.had.co.nz/)
+
+---
+class: center, middle
+
+## Le pipeline de l'analyse de données d'après Open Knowledge
+
+[![data pipeline](./img/pipeline.png)](https://schoolofdata.org)
+
+---
+class: center, middle
+
+# data journalism = data science ?
+
+---
+class: middle
+
+> One of the ways we’re different from the data science people is that data journalists tend to only use a dataset once. We’re not dealing with a huge dataset over and over again. We tend to deal with data of modest size — maybe 20,000 or 100,000 records, not millions and millions. And we’re only looking for one thing about them. What we’re finding is that these techniques are really only time-efficient if you’re going to be repeating the same analysis over and over again, not a one-time thing.
+
+[Sarah Cohen, NYT](https://journalistsresource.org/studies/society/news-media/research-chat-new-york-times-sarah-cohen-state-data-journalism-what-reporters-need-know)
+
+---
+class: middle, center
+
+### Pourtant, le besoin de reproducibilité existe pour les journalistes...
+
+---
+class: inverse, center, middle
+
+# Importer les données
+
+
+
+---
+class: middle, center
+
+[.reduite[![fichiers détail du recensement](./img/fichierdetail.png)]](https://www.insee.fr/fr/statistiques/2409379?sommaire=2409559)
+
+
+---
+class: middle, center
+
+![Excel will not like it](./img/excel.gif)
+
+---
+class: middle, center
+
+[![INSEE2MonetDBLite](./img/insee2monetdb.png)](https://github.com/joelgombin/Insee2MonetDB)
+
+---
+class: inverse, middle, center
+
+# Nettoyer
+
+---
+class: middle, center
+
+[![et tu washes, et tu washes, et tu washes...](./img/janitor.png)](https://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html)
+
+---
+class: inverse, middle, center
+
+![et tu washes, et tu washes, et tu washes...](./img/kakou.jpg)
+
+### Et tu wash, et tu wash, et tu wash...
+
+---
+class: middle, center
+
+![tidyverse](./img/tidyverse.png)
+
+### `tidyverse` to the rescue
+
+---
+class: inverse, middle, center
+
+# Transformer
+
+---
+class: middle, center
+
+![Le ministère de l'intérieur me gonfle vraiment...](./img/presidentielle.png)
+
+---
+class: middle, center
+
+![I want to kill myself](./img/schumer.gif)
+
+---
+class: middle, center
+
+[![Lire les données du ministère de l'intérieur](./img/liremininterieur.png)](https://github.com/joelgombin/liremininterieur)
+
+---
+class: middle, center
+
+![Mon appli shiny](./img/liremininterieur-shiny.png)
+
+---
+class: inverse, middle, center
+
+# Visualiser
+
+---
+class: middle, center
+
+# R est bon pour la visualisation... non ?
+
+---
+
+class: middle
+# Problèmes
+
+- besoin d'interactivité pour la publication en ligne => javascript
+
+- besoin d'éditer pour la publication papier (AKA Illustrator)
+
+- surtout, besoin de pédagogie
+
+---
+class: middle, center
+
+[![The upshot example](./img/upshot.png)](https://www.nytimes.com/interactive/2017/06/08/world/europe/british-general-election-results-analysis.html?mcubz=0)
+
+---
+class: middle, center
+
+Sans doute encore un peu de travail pour que R soit totalement satisfaisant pour le datajournalisme
+
+---
+class: middle, center
+
+> Internet aime les chatons et les cartes.
+> Fais moi des cartes
+
+Johan Hufnagel (Slate.fr)
+
+---
+class: middle, center
+
+[![Cartes pour Slate](./img/slate.png)](http://www.slate.fr/france/87669/cartes-europeennes-2014)
+
+---
+class: inverse, middle, center
+
+# Modéliser
+
+---
+class: middle, center
+
+## Le point fort de R
+
+## Le point faible du datajournalisme ?
+
+---
+class: inverse, middle, center
+
+# Communiquer
+
+---
+class: middle, center
+
+[![Rmarkdown](./img/rmarkdown.png)](http://rmarkdown.rstudio.com/)
+
+???
+Je n'ai pas connaissance de médias publiés en Rmd, mais pourquoi pas ?
+
+---
+class: middle, center
+
+[![shiny](./img/shiny.png)](https://shiny.rstudio.com/)
+
+---
+class: middle, center
+
+[![Comment j'ai (presque) cartographié les électeurs à l'adresse](./img/adresse.png)](http://joelgombin.github.io/makingof)
+
+---
+class: inverse, middle, center
+
+# Pourquoi ?
+
+---
+class: middle
+
+- Séparation entre faits et analyse/commentaire
+
+- Transparence des sources => confiance
+
+- Renouvellement des formats et des modèles économiques
+
+- leaks massifs, *big data*...
+
+---
+class: inverse, middle, center
+
+# Et maintenant ?
+
+---
+class: middle
+
+## Questions fondamentales
+
+- la formation
+
+- le coût
+
+---
+class: inverse, middle, center
+
+# Merci !
+
